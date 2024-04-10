@@ -19,3 +19,9 @@ Route::get('/', function () {
 });
 
 Route::get('/students', [StudentController::class, 'index']);
+
+Route::get('/alta', function () {
+    return view('alta');
+});
+
+Route::post('/insert', [StudentController::class, 'insert'])->name('insert');
