@@ -25,3 +25,7 @@ Route::get('/alta', function () {
 });
 
 Route::post('/insert', [StudentController::class, 'insert'])->name('insert');
+
+//Route::get('/delete/{id}', [StudentController::class, 'delete']);
+
+Route::delete('/delete/{id}', [StudentController::class, 'delete']);
