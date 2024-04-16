@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('assists', function (Blueprint $table) {
-            $table->bigInteger('dni_student');
-            $table->foreign('dni_student')->references('dni')->on('students');
-            $table->timestamp('fecha_hora');
+            $table->bigInteger('student_dni');
+            $table->foreign('student_dni')->references('dni')->on('students');
             $table->id();
             $table->timestamps();
         });

@@ -8,35 +8,52 @@ use App\Models\Student;
 
 class StudentController extends Controller
 {
-    public function index() {
-        $grupoA = DB::table('students')
-            ->select('*')
-            ->where('grupo', '=', 'A')
-            ->get();
+    public function index()
+    {
+        $students = Student::all();
 
-        return view('student', ['students'=> $grupoA]);
+        return view('student.index', ['students' => $students]);
     }
 
-    public function insert(Request $request) {
-        $student = Student::create([
+    public function store(Request $request)
+    {
+        $student = new Student();
+        $student->dni = $request->dni;
+        $student->name = $request->name;
+        $student->lastname = $request->lastname;
+        $student->birthdate = $request->birthdate;
+        $student->save();
+
+        return to_route('student.index');
+    }
+
+    public function edit($id)
+    {
+        $students = Student::all();
+        $student = $students->find($id);
+        return view('student.edit', ['student' => $student]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $students = Student::all();
+        $student = $students->find($id);
+        $student->update([
             'dni' => $request->dni,
-            'nombre' => $request->nombre,
-            'apellido' => $request->apellido,
-            'fecha_nacimiento' => $request->nacimiento,
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'birthdate' => $request->birthdate,
         ]);
 
-        /*$student = new Student();
-        $student->name = $request->nombre;
-        $student->save();*/
-
-        //$student = Student::create($request->all());
-
-        return redirect('/alta');
+        return to_route('student.index');
     }
 
-    public function delete($id) {
-        /*$students = Student::all();
+    public function destroy($id)
+    {
+        $students = Student::all();
         $student = $students->find($id);
-        $student->delete();*/
+        $student->delete();
+
+        return to_route('student.index');
     }
 }

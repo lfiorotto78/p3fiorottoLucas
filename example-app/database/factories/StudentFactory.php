@@ -15,10 +15,10 @@ class StudentFactory extends Factory
     {
         return [
             'dni' => fake()->randomNumber(8),
-            'nombre' => fake()->firstName(),
-            'apellido' => fake()->lastName(),
-            'fecha_nacimiento' => fake()->date(),
-            'grupo' => fake()->randomElement(['A', 'B']),
+            'name' => fake()->firstName(),
+            'lastname' => fake()->lastName(),
+            'birthdate' => fake()->date(),
+            'group' => fake()->randomElement(['A', 'B']),
         ];
     }
 }

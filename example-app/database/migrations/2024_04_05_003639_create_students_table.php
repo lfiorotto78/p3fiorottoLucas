@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,10 +12,10 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->bigInteger('dni')->unique();
-            $table->string('nombre');
-            $table->string('apellido');
-            $table->date('fecha_nacimiento');
-            $table->enum('grupo', ['A', 'B']);
+            $table->string('name');
+            $table->string('lastname');
+            $table->date('birthdate');
+            $table->enum('group', ['A', 'B']);
             $table->id();
             $table->timestamps();
         });
