@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AssistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,4 @@ Route::get('/', function () {
 });
 Route::resource('products', ProductController::class);
 Route::resource('students', StudentController::class);
+Route::get('/assists/{id}/show', [AssistController::class, 'show'])->name('assists.show');
