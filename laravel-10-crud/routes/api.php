@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/condition', [StudentController::class, 'condition'])->name('student.condition');
+Route::get('/{id}/condition', [StudentController::class, 'condition'])->name('student.condition');

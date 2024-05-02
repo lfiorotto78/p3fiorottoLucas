@@ -77,4 +77,24 @@ class StudentController extends Controller
         return redirect()->route('students.index')
             ->withSuccess('Student is deleted successfully.');
     }
+
+
+    public function condition($id)
+    {
+        $student = Student::find($id);
+        $assistsQuantity = count($student->assists);
+
+        $classesGiven = 15; //cantidad de clases dadas.
+        
+        $percentage = ($assistsQuantity * 100) / $classesGiven; //cálculo del porcentaje de asistencias.
+        
+        switch ($percentage) {
+            case $percentage >= 80:
+                return "Promoción";
+            case $percentage >= 60 && $percentage < 80:
+                return "Regular";
+            case $percentage < 60:
+                return "Libre";
+        }
+    }
 }
