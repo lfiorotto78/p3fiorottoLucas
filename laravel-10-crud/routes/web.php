@@ -22,3 +22,7 @@ Route::get('/', function () {
 Route::resource('products', ProductController::class);
 Route::resource('students', StudentController::class);
 Route::get('/assists/{id}/show', [AssistController::class, 'show'])->name('assists.show');
+
+Route::get('/log', function () {
+    return view('welcome');
+})->middleware('log');
