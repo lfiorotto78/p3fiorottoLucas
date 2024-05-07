@@ -1,4 +1,4 @@
-@extends('assists.layouts')
+@extends('layouts.crud')
 
 @section('content')
 
