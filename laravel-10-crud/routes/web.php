@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/assists', function () {
         return view('assists.index');
     });
-    Route::get('/assists', [AssistController::class, 'store'])->name('assists.store');
+    Route::post('/assists/store', [AssistController::class, 'store'])->name('assists.store');
     Route::get('/assists/{id}/show', [AssistController::class, 'show'])->name('assists.show');
 });
 
