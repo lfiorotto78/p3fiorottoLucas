@@ -22,7 +22,10 @@ class AssistController extends Controller
     
     public function store(Request $request)
     {
-        $student = DB::table('students')->select('id')->where('dni', '=', $request->dni)->get();
-        DB::table('assists')->insert(['student_id' => $student[0]->id]);
+        $student = Student::firstWhere('dni', $request->dni);
+
+        $assist = new Assist;
+        $assist->student_id = $student->id;
+        $assist->save();
     }
 }
