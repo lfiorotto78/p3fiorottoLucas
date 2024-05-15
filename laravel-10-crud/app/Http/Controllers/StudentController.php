@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentSearchRequest;
 use App\Models\Student;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Carbon\Carbon;
 
 class StudentController extends Controller
 {
@@ -96,5 +98,20 @@ class StudentController extends Controller
             case $percentage < 60:
                 return "Libre";
         }
+    }
+
+    public function search(StudentSearchRequest $request)
+    {
+        try {
+            $student = Student::where('dni', $request->dni)->firstOrFail();
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('unexistent', 'No existe alumno con tal DNI');
+        }
+
+        return view('students.consult', [
+            'student' => $student,
+            'assists' => $student->assists->all(),
+            'todayDate' => Carbon::now()->toDateString()
+        ]);
     }
 }

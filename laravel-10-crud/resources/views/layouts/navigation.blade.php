@@ -13,7 +13,13 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Inicio') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('students.index')" :active="request()->routeIs('students.index')">
+                        {{ __('Alumnos') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('students.consult')" :active="request()->routeIs('students.consult', 'students.search')">
+                        {{ __('Consulta') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -68,7 +74,13 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('Inicio') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('students.index')" :active="request()->routeIs('students.index')">
+                {{ __('Alumnos') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('students.search')" :active="request()->routeIs('students.search')">
+                {{ __('Consulta') }}
             </x-responsive-nav-link>
         </div>
 

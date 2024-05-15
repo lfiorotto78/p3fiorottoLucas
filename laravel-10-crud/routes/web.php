@@ -31,14 +31,18 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    //App//
+    //CRUD Alumnos//
     Route::resource('students', StudentController::class);
-    
-    Route::get('/assists', function () {
-        return view('assists.index');
-    });
-    Route::post('/assists/store', [AssistController::class, 'store'])->name('assists.store');
+
+    //Asistencias
+    Route::post('/assists', [AssistController::class, 'store'])->name('assists.store');
     Route::get('/assists/{id}/show', [AssistController::class, 'show'])->name('assists.show');
+
+    //Consulta
+    Route::get('/consult', function () {
+        return view('students.consult');
+    })->name('students.consult');
+    Route::post('/consult', [StudentController::class, 'search'])->name('students.search');
 });
 
 require __DIR__.'/auth.php';
