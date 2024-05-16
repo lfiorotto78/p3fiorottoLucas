@@ -117,7 +117,16 @@ class StudentController extends Controller
 
     public function birthday()
     {
-        $studentsBirthDays = Student::where('birthdate', 'like', '%'.Carbon::now()->format('m-d'))->get();
+        //$studentsBirthDays = Student::where('birthdate', 'like', '%'.Carbon::now()->format('m-d'))->get();
+
+        $students = Student::all();
+        $studentsBirthDays = array();
+        
+        foreach ($students as $student) {
+            if (Carbon::parse($student->birthdate)->isBirthday(Carbon::now())) {
+                array_push($studentsBirthDays, $student);
+            }
+        }
 
         return view('dashboard', [
             'studentsBirthDays' => $studentsBirthDays

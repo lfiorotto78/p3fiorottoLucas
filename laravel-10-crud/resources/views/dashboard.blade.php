@@ -1,15 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div>
-        <div>
-            <h5>Cumple años hoy</h5>
-        </div>
-        <div>
+    <div class="h-screen flex justify-center mt-10">
+        <div class="size-fit p-2 bg-slate-500/50">
+            <h5 class="text-xl p-2">Cumple años hoy</h5>
             @forelse ($studentsBirthDays as $student)
                 <p>{{ $student->firstname }} {{ $student->lastname }}</p>
             @empty
