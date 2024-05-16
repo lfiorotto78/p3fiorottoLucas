@@ -114,4 +114,13 @@ class StudentController extends Controller
             'todayDate' => Carbon::now()->toDateString()
         ]);
     }
+
+    public function birthday()
+    {
+        $studentsBirthDays = Student::where('birthdate', 'like', '%'.Carbon::now()->format('m-d'))->get();
+
+        return view('dashboard', [
+            'studentsBirthDays' => $studentsBirthDays
+        ]);
+    }
 }

@@ -5,13 +5,16 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+    <div>
+        <div>
+            <h5>Cumple años hoy</h5>
+        </div>
+        <div>
+            @forelse ($studentsBirthDays as $student)
+                <p>{{ $student->firstname }} {{ $student->lastname }}</p>
+            @empty
+                <p>Nadie cumple años hoy</p>
+            @endforelse
         </div>
     </div>
 </x-app-layout>
