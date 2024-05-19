@@ -1,45 +1,76 @@
 <x-app-layout>
-    <div class="h-screen flex justify-center pt-10">
-        <div class="size-fit">
+    <div class="h-screen flex justify-center">
+        <div class="mt-10 size-fit">
             <form action="{{ route('students.search') }}" method="post" autocomplete="off">
                 @csrf
                 
-                <label for="dni" class="text-sm text-slate-500">DNI</label> <br>
-                <input type="text" name="dni" id="dni" value="{{ old('dni') }}" class="peer max-h-9 bg-transparent/5 border-0 border-b-2 border-blue-500 rounded-t hover:border-b-4 hover:shadow-md focus:outline-none focus:ring-0 focus:border-b-4 focus:border-blue-500 focus:shadow-md">
-                @error('dni') <p>{{ $message }}</p> @enderror
-                <div class="flex justify-center py-4">
-                    <button type="submit" class="px-3 py-1 rounded active:scale-90 bg-blue-500 text-white">Buscar</button>
+                <div class="flex justify-start">
+                    <label for="dni" class="text-slate-500">DNI</label>
                 </div>
-            </form> <br>
+                <div class="w-full flex justify-center">
+                    <input type="text" name="dni" id="dni" value="{{ old('dni') }}"
+                    class="h-10 w-full rounded-t border-0 border-b-2 border-blue-500 hover:border-b-4 focus:border-b-4 focus:outline-none focus:ring-0 focus:border-blue-500 bg-transparent/5">
+                </div>
 
-            @if (Session::has('unexistent'))
-                {{ Session::get('unexistent') }}
-            @endif
+                <p class="h-8">@error('dni') {{ $message }} @enderror</p>
 
-            @if (Session::has('success'))
-                {{ Session::get('success') }}
-            @endif
+                <div class="flex justify-center">
+                    <button type="submit" class="px-2 py-1 rounded text-lg bg-blue-500 text-white">Buscar</button>
+                </div>
+            </form>
 
+            <div class="mt-5">
+                @if (Session::has('unexistent'))
+                    <p class="text-lg underline decoration-2 decoration-red-500">{{ Session::get('unexistent') }}</p>
+                @endif
+
+                @if (Session::has('success'))
+                    <p class="text-lg underline decoration-2 decoration-green-600">{{ Session::get('success') }}</p>
+                @endif
+            </div>
+            
             @isset($student)
-                <div>
-                    <p>{{ $student->dni }}</p>
-                    <p>{{ $student->firstname }} {{ $student->lastname }}</p>
-                    <p>{{ $student->birthdate }}</p> <br>
-
-                    @forelse ($assists as $assist)
-                        @if ($todayDate == $assist->created_at->format('Y-m-d'))
-                            <p>Asistencia ya registrada</p>
-                            @break
-                        @endif
-                    @empty
-                        <form action="{{ route('assists.store') }}" method="post">
-                            @csrf
-
-                            <input type="hidden" name="id" value="{{ $student->id }}">
-                            <button type="submit">Dar asistencia</button>
-                        </form>
-                    @endforelse
+                <div class="flex flex-col">
+                    <div class="flex flex-row rounded-t bg-slate-200">
+                        <div class="basis-1/2 ps-2 py-2">
+                            <p class="text-start">DNI</p>
+                        </div>
+                        <div class="basis-1/2 pe-2 py-2">
+                            <p class="text-end">{{ $student->dni }}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-row items-center bg-white">
+                        <div class="basis-1/2 ps-2 py-2">
+                            <p class="text-start">Nombre</p>
+                        </div>
+                        <div class="basis-1/2 pe-2 py-2">
+                            <p class="text-end">{{ $student->firstname }} {{ $student->lastname }}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-row rounded-b bg-slate-200">
+                        <div class="basis-1/2 ps-2 py-2">
+                            <p class="text-start">Nacimiento</p>
+                        </div>
+                        <div class="basis-1/2 pe-2 py-2">
+                            <p class="text-end">{{ $student->birthdate }}</p>
+                        </div>
+                    </div>
                 </div>
+
+                @if (empty($lastAssist) || $lastAssist->created_at->toDateString() != Carbon\Carbon::now()->toDateString())
+                    <form action="{{ route('assists.store') }}" method="post">
+                        @csrf
+
+                        <input type="hidden" name="id" value="{{ $student->id }}">
+                        <div class="flex justify-center mt-4">
+                            <button type="submit" class="px-2 py-1 rounded text-lg bg-green-600 text-white">Registrar asistencia</button>
+                        </div>
+                    </form>    
+                @else
+                    <div class="flex justify-center mt-5">
+                        <p class="text-lg underline decoration-2 decoration-yellow-400">Asistencia ya registrada</p>
+                    </div>
+                @endif
             @endisset
         </div>
     </div>

@@ -105,31 +105,22 @@ class StudentController extends Controller
         try {
             $student = Student::where('dni', $request->dni)->firstOrFail();
         } catch (\Throwable $th) {
-            return redirect()->back()->with('unexistent', 'No existe alumno con tal DNI');
+            return redirect()->back()->with('unexistent', 'No existe alumno con tal DNI')->withInput();
         }
 
         return view('students.consult', [
             'student' => $student,
-            'assists' => $student->assists->all(),
-            'todayDate' => Carbon::now()->toDateString()
+            'lastAssist' => $student->assists->last()
         ]);
     }
 
     public function birthday()
     {
-        //$studentsBirthDays = Student::where('birthdate', 'like', '%'.Carbon::now()->format('m-d'))->get();
-
-        $students = Student::all();
-        $studentsBirthDays = array();
-        
-        foreach ($students as $student) {
-            if (Carbon::parse($student->birthdate)->isBirthday(Carbon::now())) {
-                array_push($studentsBirthDays, $student);
-            }
-        }
+        $students = Student::where('birthdate', 'like', '%'.Carbon::now()->format('m-d'))->orderBy('lastname')->get();
+        //Carbon::parse($student->birthdate)->isBirthday(Carbon::now())
 
         return view('dashboard', [
-            'studentsBirthDays' => $studentsBirthDays
+            'students' => $students
         ]);
     }
 }

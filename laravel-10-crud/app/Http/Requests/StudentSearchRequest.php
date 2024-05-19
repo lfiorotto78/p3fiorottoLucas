@@ -25,4 +25,15 @@ class StudentSearchRequest extends FormRequest
             'dni' => 'required|numeric|integer|min:1|digits_between:1,8'
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'dni.required' => 'Debe ingresar un número para iniciar la búsqueda.',
+            'dni.numeric' => 'Debe ser numérico.',
+            'dni.integer' => 'Debe ser un número entero.',
+            'dni.min' => 'Debe ser mayor o igual a 1.',
+            'dni.digits_between' => 'Debe tener entre 1 y 8 dígitos.'
+        ];
+    }
 }
