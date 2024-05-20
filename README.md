@@ -17,4 +17,4 @@
   npm run dev (en una consola separada)
   php artisan serve
   ```
-7. Abrir un navegador web y dirigirse a la url [http://127.0.0.1:8000](url).
+7. Abrir un navegador web y dirigirse a la url [http://127.0.0.1:8000](url)
