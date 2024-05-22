@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AssistController;
+use App\Http\Controllers\ParameterController;
 use App\Http\Controllers\ProductController;
 
 /*
@@ -41,6 +42,9 @@ Route::middleware('auth')->group(function () {
         return view('students.consult');
     })->name('students.consult');
     Route::post('/consult', [StudentController::class, 'search'])->name('students.search');
+
+    //Parametros
+    Route::get('/parameters', [ParameterController::class, 'index'])->name('parameters.index');
 });
 
 require __DIR__ . '/auth.php';

@@ -43,7 +43,13 @@
                             {{ $student->birthdate }}
                         </div>
                     </div>
-        
+                    
+                    <div class="row">
+                        <label for="condition" class="col-md-4 col-form-label text-md-end text-start"><strong>Condición:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $condition }}
+                        </div>
+                    </div>
             </div>
         </div>
     </div>    

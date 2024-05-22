@@ -45,8 +45,11 @@ class StudentController extends Controller
      */
     public function show(Student $student): View
     {
+        $condition = $this->condition($student->id);
+
         return view('students.show', [
-            'student' => $student
+            'student' => $student,
+            'condition' => $condition
         ]);
     }
 
@@ -88,7 +91,7 @@ class StudentController extends Controller
 
         $classesGiven = 15; //cantidad de clases dadas.
         
-        $percentage = ($assistsQuantity * 100) / $classesGiven; //cálculo del porcentaje de asistencias.
+        $percentage = ($assistsQuantity * 100) / $classesGiven;
         
         switch ($percentage) {
             case $percentage >= 80:
