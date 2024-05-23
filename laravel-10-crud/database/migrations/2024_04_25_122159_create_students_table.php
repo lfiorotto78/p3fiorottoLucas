@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->date('birthdate');
+            $table->enum('year', ['1', '2', '3']);
             $table->timestamps();
         });
     }
