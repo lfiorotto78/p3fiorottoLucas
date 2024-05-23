@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentSearchRequest;
 use App\Models\Student;
+use App\Models\Parameter;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreStudentRequest;
@@ -89,17 +90,22 @@ class StudentController extends Controller
         $student = Student::find($id);
         $assistsQuantity = count($student->assists);
 
-        $classesGiven = 15; //cantidad de clases dadas.
+        $classesQuantity = Parameter::all()->last()->classes_quantity;
+        $promotionPercentage = Parameter::all()->last()->promotion_percentage;
+        $regularPercentage = Parameter::all()->last()->regular_percentage;
         
-        $percentage = ($assistsQuantity * 100) / $classesGiven;
+        $percentage = ($assistsQuantity * 100) / $classesQuantity;
         
-        switch ($percentage) {
-            case $percentage >= 80:
-                return "Promoción";
-            case $percentage >= 60 && $percentage < 80:
-                return "Regular";
-            case $percentage < 60:
-                return "Libre";
+        if ($percentage >= $promotionPercentage) {
+            return "Promoción";
+        }
+
+        if ($percentage >= $regularPercentage && $percentage < $promotionPercentage) {
+            return "Regular";
+        }
+
+        if ($percentage < $regularPercentage) {
+            return "Libre";
         }
     }
 

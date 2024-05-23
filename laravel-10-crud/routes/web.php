@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
 
     //Parametros
     Route::get('/parameters', [ParameterController::class, 'index'])->name('parameters.index');
+    Route::post('/parameters', [ParameterController::class, 'save'])->name('parameters.save');
 });
 
 require __DIR__ . '/auth.php';
