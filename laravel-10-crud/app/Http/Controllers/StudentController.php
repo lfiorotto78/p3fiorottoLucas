@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\Parameter;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use Carbon\Carbon;
@@ -19,7 +20,14 @@ class StudentController extends Controller
     public function index(): View
     {
         return view('students.index', [
-            'students' => Student::latest()->paginate(3)
+            'students' => Student::all()
+        ]);
+    }
+
+    public function filter(Request $request): View
+    {
+        return view('students.index', [
+            'students' => Student::where('year', $request->year)->get()
         ]);
     }
 
@@ -37,8 +45,8 @@ class StudentController extends Controller
     public function store(StoreStudentRequest $request): RedirectResponse
     {
         Student::create($request->all());
-        return redirect()->route('students.index')
-            ->withSuccess('New student is added successfully.');
+        
+        return redirect()->route('students.index')->withSuccess('Alumno registrado con éxito');
     }
 
     /**
@@ -90,22 +98,28 @@ class StudentController extends Controller
         $student = Student::find($id);
         $assistsQuantity = count($student->assists);
 
-        $classesQuantity = Parameter::all()->last()->classes_quantity;
-        $promotionPercentage = Parameter::all()->last()->promotion_percentage;
-        $regularPercentage = Parameter::all()->last()->regular_percentage;
+        $parameters = Parameter::all()->last();
+
+        if (empty($parameters)) {
+            return ['result' => 'error', 'message' => 'PARAMETROS NO ESTABLECIDOS'];
+        }
+
+        $classesQuantity = $parameters->classes_quantity;
+        $promotionPercentage = $parameters->promotion_percentage;
+        $regularPercentage = $parameters->regular_percentage;
         
         $percentage = ($assistsQuantity * 100) / $classesQuantity;
         
         if ($percentage >= $promotionPercentage) {
-            return "Promoción";
+            return ['result' => 'success', 'message' => 'Promoción'];
         }
 
         if ($percentage >= $regularPercentage && $percentage < $promotionPercentage) {
-            return "Regular";
+            return ['result' => 'success', 'message' => 'Regular'];
         }
 
         if ($percentage < $regularPercentage) {
-            return "Libre";
+            return ['result' => 'success', 'message' => 'Libre'];
         }
     }
 

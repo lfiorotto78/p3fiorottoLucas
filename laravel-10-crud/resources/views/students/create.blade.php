@@ -62,9 +62,9 @@
                         <label for="year" class="col-md-4 col-form-label text-md-end text-start">Año</label>
                         <div class="col-md-6">
                             <select name="year" id="year">
-                                <option value="'1'">1</option>
-                                <option value="'2'">2</option>
-                                <option value="'3'">3</option>
+                                <option value="first">Primero</option>
+                                <option value="second">Segundo</option>
+                                <option value="third">Tercero</option>
                             </select>
                         </div>
                     </div>

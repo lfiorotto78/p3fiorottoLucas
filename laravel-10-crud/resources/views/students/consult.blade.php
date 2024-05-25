@@ -15,7 +15,7 @@
                 <p class="h-8">@error('dni') {{ $message }} @enderror</p>
 
                 <div class="flex justify-center">
-                    <button type="submit" class="px-2 py-1 rounded text-lg bg-blue-500 text-white">Buscar</button>
+                    <input type="submit" value="Buscar" class="px-2 py-1 rounded text-lg bg-blue-500 text-white">
                 </div>
             </form>
 

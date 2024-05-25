@@ -21,6 +21,7 @@ class StudentFactory extends Factory
             'firstname' => fake()->firstName(),
             'lastname' => fake()->lastName(),
             'birthdate' => fake()->date(),
+            'year' => fake()->randomElement(['first', 'second', 'third'])
         ];
     }
 }

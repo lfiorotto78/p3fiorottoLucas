@@ -30,8 +30,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    //CRUD Alumnos//
+    //Alumnos//
     Route::resource('students', StudentController::class);
+    Route::post('/students', [StudentController::class, 'filter'])->name('students.filter');
 
     //Asistencias
     Route::post('/assists', [AssistController::class, 'store'])->name('assists.store');

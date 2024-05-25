@@ -14,7 +14,8 @@ class Student extends Model
         'dni',
         'firstname',
         'lastname',
-        'birthdate'
+        'birthdate',
+        'year'
     ];
 
     public function assists(): HasMany
