@@ -41,7 +41,7 @@
                     </div>
                     <div class="flex flex-row items-center bg-white">
                         <div class="basis-1/2 ps-2 py-2">
-                            <p class="text-start">Nombre</p>
+                            <p class="text-start">NOMBRE</p>
                         </div>
                         <div class="basis-1/2 pe-2 py-2">
                             <p class="text-end">{{ $student->firstname }} {{ $student->lastname }}</p>
@@ -49,10 +49,30 @@
                     </div>
                     <div class="flex flex-row rounded-b bg-slate-200">
                         <div class="basis-1/2 ps-2 py-2">
-                            <p class="text-start">Nacimiento</p>
+                            <p class="text-start">NACIMIENTO</p>
                         </div>
                         <div class="basis-1/2 pe-2 py-2">
                             <p class="text-end">{{ $student->birthdate }}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-row rounded-b bg-white">
+                        <div class="basis-1/2 ps-2 py-2">
+                            <p class="text-start">AÑO</p>
+                        </div>
+                        <div class="basis-1/2 pe-2 py-2">
+                            <p class="text-end">
+                                @switch($student->year)
+                                    @case('first')
+                                        <p class="text-end">Primero</p>
+                                        @break
+                                    @case('second')
+                                        <p class="text-end">Segundo</p>
+                                        @break
+                                    @case('third')
+                                        <p class="text-end">Tercero</p>
+                                        @break 
+                                @endswitch
+                            </p>
                         </div>
                     </div>
                 </div>

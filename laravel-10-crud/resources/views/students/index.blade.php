@@ -11,15 +11,15 @@
                 @endif
             </div>
 
-            <div class="flex flex-row justify-start">
-                <a href="{{ route('students.index') }}">Todos</a>
+            <div class="flex flex-row justify-start mt-5 mb-1">
+                <a href="{{ route('students.index') }}" class="me-1 px-2 py-1 rounded text-sm bg-blue-500 text-white">Todos</a>
                 
                 <form action="{{ route('students.filter') }}" method="post">
                     @csrf
 
-                    <button type="submit" name="year" value="first">Primero</button>
-                    <button type="submit" name="year" value="second">Segundo</button>
-                    <button type="submit" name="year" value="third">Tercero</button>
+                    <button type="submit" name="year" value="first" class="px-2 py-1 rounded text-sm bg-blue-500 text-white">Primero</button>
+                    <button type="submit" name="year" value="second" class="px-2 py-1 rounded text-sm bg-blue-500 text-white">Segundo</button>
+                    <button type="submit" name="year" value="third" class="px-2 py-1 rounded text-sm bg-blue-500 text-white">Tercero</button>
                 </form>
             </div>
 

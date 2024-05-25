@@ -1,81 +1,67 @@
-@extends('layouts.crud')
-
-@section('content')
-    <div class="row justify-content-center mt-3">
-        <div class="col-md-8">
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="float-start">
-                        Student Information
-                    </div>
-                    <div class="float-end">
-                        <a href="{{ route('students.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
-                    </div>
+<x-app-layout>
+    <div class="h-screen flex justify-center">
+        <div class="flex flex-col mt-10">
+            <div class="flex flex-row rounded-t justify-center bg-blue-500 text-white">
+                <div class="ps-2 py-1">
+                    <p class="text-sm">DATOS DEL ALUMNO</p>
                 </div>
-                <div class="card-body">
-
-                    <div class="row">
-                        <label for="dni"
-                            class="col-md-4 col-form-label text-md-end text-start"><strong>DNI:</strong></label>
-                        <div class="col-md-6" style="line-height: 35px;">
-                            {{ $student->dni }}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label for="firstname"
-                            class="col-md-4 col-form-label text-md-end text-start"><strong>Nombre:</strong></label>
-                        <div class="col-md-6" style="line-height: 35px;">
-                            {{ $student->firstname }}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label for="lastname"
-                            class="col-md-4 col-form-label text-md-end text-start"><strong>Apellido:</strong></label>
-                        <div class="col-md-6" style="line-height: 35px;">
-                            {{ $student->lastname }}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label for="birthdate" class="col-md-4 col-form-label text-md-end text-start"><strong>Fecha de nacimiento:</strong></label>
-                        <div class="col-md-6" style="line-height: 35px;">
-                            {{ $student->birthdate }}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label for="year" class="col-md-4 col-form-label text-md-end text-start"><strong>Año:</strong></label>
-                        <div class="col-md-6" style="line-height: 35px;">
-                            @switch($student->year)
-                                @case('first')
-                                    <p>Primero</p>
-                                    @break
-                                @case('second')
-                                    <p>Segundo</p>
-                                    @break
-                                @case('third')
-                                    <p>Tercero</p>
-                                    @break 
-                            @endswitch
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label for="condition"
-                            class="col-md-4 col-form-label text-md-end text-start"><strong>Condición:</strong></label>
-                        <div class="col-md-6" style="line-height: 35px;">
-                            @if ($condition['result'] == 'error')
-                                <p>{{ $condition['message'] }}</p>
-                            @else
-                                <p>{{ $condition['message'] }}</p>
-                            @endif
-                        </div>
-                    </div>
+            </div>
+            <div class="flex flex-row rounded-t bg-slate-200">
+                <div class="basis-1/2 ps-2 py-2">
+                    <p class="text-start">DNI</p>
+                </div>
+                <div class="basis-1/2 pe-2 py-2">
+                    <p class="text-end">{{ $student->dni }}</p>
+                </div>
+            </div>
+            <div class="flex flex-row items-center bg-white">
+                <div class="basis-1/2 ps-2 py-2">
+                    <p class="text-start">NOMBRE</p>
+                </div>
+                <div class="basis-1/2 pe-2 py-2">
+                    <p class="text-end">{{ $student->firstname }} {{ $student->lastname }}</p>
+                </div>
+            </div>
+            <div class="flex flex-row rounded-b bg-slate-200">
+                <div class="basis-1/2 ps-2 py-2">
+                    <p class="text-start">NACIMIENTO</p>
+                </div>
+                <div class="basis-1/2 pe-2 py-2">
+                    <p class="text-end">{{ $student->birthdate }}</p>
+                </div>
+            </div>
+            <div class="flex flex-row rounded-b bg-white">
+                <div class="basis-1/2 ps-2 py-2">
+                    <p class="text-start">AÑO</p>
+                </div>
+                <div class="basis-1/2 pe-2 py-2">
+                    <p class="text-end">
+                        @switch($student->year)
+                            @case('first')
+                                <p class="text-end">Primero</p>
+                                @break
+                            @case('second')
+                                <p class="text-end">Segundo</p>
+                                @break
+                            @case('third')
+                                <p class="text-end">Tercero</p>
+                                @break 
+                        @endswitch
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-row items-center rounded-b bg-slate-200">
+                <div class="basis-1/2 ps-2 py-2">
+                    <p class="text-start">CONDICIÓN</p>
+                </div>
+                <div class="basis-1/2 pe-2 py-2">
+                    @if ($condition['result'] == 'error')
+                        <p class="text-end">{{ $condition['message'] }}</p>
+                    @else
+                        <p class="text-end">{{ $condition['message'] }}</p>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>
