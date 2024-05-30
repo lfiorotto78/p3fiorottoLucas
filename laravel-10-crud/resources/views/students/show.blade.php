@@ -55,11 +55,7 @@
                     <p class="text-start">CONDICIÓN</p>
                 </div>
                 <div class="basis-1/2 pe-2 py-2">
-                    @if ($condition['result'] == 'error')
-                        <p class="text-end">{{ $condition['message'] }}</p>
-                    @else
-                        <p class="text-end">{{ $condition['message'] }}</p>
-                    @endif
+                    <p class="text-end">{{ $condition }}</p>
                 </div>
             </div>
         </div>
