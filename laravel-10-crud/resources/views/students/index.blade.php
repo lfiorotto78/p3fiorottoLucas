@@ -11,16 +11,20 @@
                 @endif
             </div>
 
-            <div class="flex flex-row justify-start mt-5 mb-1">
-                <a href="{{ route('students.index') }}" class="me-1 px-2 py-1 rounded text-sm bg-blue-500 text-white">Todos</a>
-                
-                <form action="{{ route('students.filter') }}" method="post">
-                    @csrf
-
-                    <button type="submit" name="year" value="first" class="px-2 py-1 rounded text-sm bg-blue-500 text-white">Primero</button>
-                    <button type="submit" name="year" value="second" class="px-2 py-1 rounded text-sm bg-blue-500 text-white">Segundo</button>
-                    <button type="submit" name="year" value="third" class="px-2 py-1 rounded text-sm bg-blue-500 text-white">Tercero</button>
-                </form>
+            <div class="flex flex-row justify-between mt-5 mb-1">
+                <div class="flex">
+                    <a href="{{ route('students.index') }}" class="me-1 px-2 py-1 rounded text-sm bg-blue-500 text-white">Todos</a>
+                    <a href="{{ route('students.filter', 'first') }}" class="me-1 px-2 py-1 rounded text-sm bg-blue-500 text-white">Primero</a>
+                    <a href="{{ route('students.filter', 'second') }}" class="me-1 px-2 py-1 rounded text-sm bg-blue-500 text-white">Segundo</a>
+                    <a href="{{ route('students.filter', 'third') }}" class="me-1 px-2 py-1 rounded text-sm bg-blue-500 text-white">Tercero</a>
+                </div>
+                <div class="flex">
+                    @if (isset($year))
+                        <a href="{{ route('pdf.students', $year) }}" class="px-2 py-1 rounded text-sm bg-red-600 text-white">PDF</a>
+                    @else
+                        <a href="{{ route('pdf.students', 'all') }}" class="px-2 py-1 rounded text-sm bg-red-600 text-white">PDF</a>
+                    @endif
+                </div>
             </div>
 
             <div>

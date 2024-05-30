@@ -24,10 +24,11 @@ class StudentController extends Controller
         ]);
     }
 
-    public function filter(Request $request): View
+    public function filter($year): View
     {
         return view('students.index', [
-            'students' => Student::where('year', $request->year)->get()
+            'students' => Student::where('year', $year)->get(),
+            'year' => $year
         ]);
     }
 

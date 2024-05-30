@@ -8,10 +8,14 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class PdfController extends Controller
 {
-    public function allStudentsReport()
+    public function studentsReport($year)
     {
-        $students = Student::all();
-        
+        if ($year == 'all') {
+            $students = Student::all();
+        } else {
+            $students = Student::where('year', $year)->get();
+        }
+       
         foreach ($students as $student) {
             $student->condition = StudentController::getCondition($student);
         }

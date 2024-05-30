@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
 
     //Alumnos//
     Route::resource('students', StudentController::class);
-    Route::post('/students', [StudentController::class, 'filter'])->name('students.filter');
+    Route::get('/students/filter/{year}', [StudentController::class, 'filter'])->name('students.filter');
 
     //Asistencias
     Route::post('/assists', [AssistController::class, 'store'])->name('assists.store');
@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/parameters', [ParameterController::class, 'save'])->name('parameters.save');
 
     //PDF
-    Route::get('/report/all', [PdfController::class, 'allStudentsReport'])->name('pdf.allStudents');
+    Route::get('/report/{year}', [PdfController::class, 'studentsReport'])->name('pdf.students');
 });
 
 require __DIR__ . '/auth.php';
