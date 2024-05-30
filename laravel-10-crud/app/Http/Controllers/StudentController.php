@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use Carbon\Carbon;
+use App\Http\Controllers\LogController;
 
 class StudentController extends Controller
 {
@@ -46,6 +47,8 @@ class StudentController extends Controller
     public function store(StoreStudentRequest $request): RedirectResponse
     {
         Student::create($request->all());
+
+        LogController::crudLog($request, 'alta');
         
         return redirect()->route('students.index')->withSuccess('Alumno registrado con éxito');
     }
@@ -79,6 +82,9 @@ class StudentController extends Controller
     public function update(UpdateStudentRequest $request, Student $student): RedirectResponse
     {
         $student->update($request->all());
+
+        LogController::crudLog($request, 'modificacion');
+
         return redirect()->back()
             ->withSuccess('Student is updated successfully.');
     }
@@ -86,9 +92,12 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student): RedirectResponse
+    public function destroy(Request $request, Student $student): RedirectResponse
     {
         $student->delete();
+
+        LogController::crudLog($request, 'baja');
+
         return redirect()->route('students.index')
             ->withSuccess('Student is deleted successfully.');
     }

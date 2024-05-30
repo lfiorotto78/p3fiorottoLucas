@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,9 @@ Route::middleware('auth')->group(function () {
 
     //PDF
     Route::get('/report/{year}', [PdfController::class, 'studentsReport'])->name('pdf.students');
+
+    //Logs
+    Route::get('/logs', [LogController::class, 'index'])->middleware('admin');
 });
 
 require __DIR__ . '/auth.php';

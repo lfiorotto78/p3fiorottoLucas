@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->string('action');
             $table->string('ip');
-            $table->timestamp('dia_hora');
+            $table->string('browser');
+            $table->timestamps();
         });
     }
 
