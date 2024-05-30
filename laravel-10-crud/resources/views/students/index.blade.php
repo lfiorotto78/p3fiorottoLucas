@@ -20,9 +20,9 @@
                 </div>
                 <div class="flex">
                     @if (isset($year))
-                        <a href="{{ route('pdf.students', $year) }}" class="px-2 py-1 rounded text-sm bg-red-600 text-white">PDF</a>
+                        <a href="{{ route('pdf.students', $year) }}" target="_blank" class="px-2 py-1 rounded text-sm bg-red-600 text-white">PDF</a>
                     @else
-                        <a href="{{ route('pdf.students', 'all') }}" class="px-2 py-1 rounded text-sm bg-red-600 text-white">PDF</a>
+                        <a href="{{ route('pdf.students', 'all') }}" target="_blank" class="px-2 py-1 rounded text-sm bg-red-600 text-white">PDF</a>
                     @endif
                 </div>
             </div>
