@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AssistController;
 use App\Http\Controllers\ParameterController;
-use App\Http\Controllers\ProductController;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Student;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +49,9 @@ Route::middleware('auth')->group(function () {
     //Parametros
     Route::get('/parameters', [ParameterController::class, 'index'])->name('parameters.index');
     Route::post('/parameters', [ParameterController::class, 'save'])->name('parameters.save');
+
+    //PDF
+    Route::get('/report/all', [PdfController::class, 'allStudentsReport'])->name('pdf.allStudents');
 });
 
 require __DIR__ . '/auth.php';

@@ -54,7 +54,7 @@ class StudentController extends Controller
      */
     public function show(Student $student): View
     {
-        $condition = $this->condition($student->id);
+        $condition = $this->getCondition($student);
 
         return view('students.show', [
             'student' => $student,
@@ -93,15 +93,14 @@ class StudentController extends Controller
     }
 
 
-    public function condition($id)
+    public static function getCondition($student)
     {
-        $student = Student::find($id);
         $assistsQuantity = count($student->assists);
-
+        
         $parameters = Parameter::all()->last();
 
         if (empty($parameters)) {
-            return ['result' => 'error', 'message' => 'PARAMETROS NO ESTABLECIDOS'];
+            return 'PARAMETROS NO ESTABLECIDOS';
         }
 
         $classesQuantity = $parameters->classes_quantity;
@@ -111,15 +110,15 @@ class StudentController extends Controller
         $percentage = ($assistsQuantity * 100) / $classesQuantity;
         
         if ($percentage >= $promotionPercentage) {
-            return ['result' => 'success', 'message' => 'Promoción'];
+            return 'Promoción';
         }
 
         if ($percentage >= $regularPercentage && $percentage < $promotionPercentage) {
-            return ['result' => 'success', 'message' => 'Regular'];
+            return 'Regular';
         }
 
         if ($percentage < $regularPercentage) {
-            return ['result' => 'success', 'message' => 'Libre'];
+            return 'Libre';
         }
     }
 
