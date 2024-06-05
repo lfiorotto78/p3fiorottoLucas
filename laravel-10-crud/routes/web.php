@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AssistController;
 use App\Http\Controllers\ParameterController;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Models\Student;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,8 +50,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/parameters', [ParameterController::class, 'index'])->name('parameters.index');
     Route::post('/parameters', [ParameterController::class, 'save'])->name('parameters.save');
 
-    //PDF
-    Route::get('/report/{year}', [PdfController::class, 'studentsReport'])->name('pdf.students');
+    //Reportes
+    Route::get('/report/pdf/{year}', [PdfController::class, 'studentsReport'])->name('pdf.students');
+    Route::get('/report/excel', function () {
+        $spreadsheet = new Spreadsheet();
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+        $activeWorksheet->setCellValue('A1', 'Hello World !');
+
+        $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'. urlencode('hello world.xlsx').'"');
+        $writer->save('php://output');
+        // $writer->save('hello world.xlsx');
+    });
 });
 
 require __DIR__ . '/auth.php';
